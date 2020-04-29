@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 body {
@@ -7,7 +7,7 @@ body {
     background-color: #FAACA8;
     background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    font-size: 10px; 
+    font-size: 10px;
 }
 
 .flex {
@@ -15,7 +15,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem; 
+    padding: 2rem;
 }
 
 .todo__container {
@@ -23,18 +23,18 @@ body {
     margin: 0 auto;
     width: 100%;
     max-width: 30rem;
-    padding: 2rem 0; 
+    padding: 2rem 0;
 }
 
 .todo__title {
     text-align: center;
     margin: 0;
-    margin-bottom: 2rem; 
+    margin-bottom: 2rem;
 }
 
 .todo-form__input {
     width: 100%;
-    padding: 1rem; 
+    padding: 1rem;
 }
 
 .todo-form__btn {
@@ -46,15 +46,15 @@ body {
     border: none;
     font-weight: bold;
     padding: 1rem;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .todo-form__btn:hover {
-    background-color: lightslategray; 
+    background-color: lightslategray;
 }
 
-.todo__tarefas-lista {  
-    padding: 0; 
+.todo__tarefas-lista {
+    padding: 0;
 }
 
 .todo__tarefas-lista li {
@@ -65,16 +65,16 @@ body {
     padding-left: 2rem;
     cursor: pointer;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 
 .todo__tarefas-lista li .checked {
     color: #ccc;
-    text-decoration: line-through; 
+    text-decoration: line-through;
 }
 
 .todo__tarefas-lista li.over {
-    border: 1px dashed #ccc; 
+    border: 1px dashed #ccc;
 }
 
 .todo__btn-container {
@@ -92,4 +92,9 @@ body {
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
-} 
+}
+
+label {
+    text-align: left;
+    width: 100%;
+}
