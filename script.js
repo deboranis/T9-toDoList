@@ -8,6 +8,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const todoForm = document.querySelector('#todoForm');
     const marcarTodos = document.querySelector('#todoMarcarTodos');
     const removerTodos = document.querySelector('#todoRemoverTodos');
+    let todosFeitos = false; // Controla se todas as tarefas estao ticadas. Valor eh false quando ao menos uma nao esta e true caso todas estejam
 
 
     function addTarefa() {
@@ -50,28 +51,24 @@ window.addEventListener('DOMContentLoaded', function() {
         checkbox.setAttribute("type", "checkbox");
         checkbox.setAttribute("id", inputText.value);
         checkbox.setAttribute("name", inputText.value);
+        checkbox.addEventListener("input", checarTodosMarcados) // Chama checar todos marcados porque o valor da variavel todosFeitos pode precisar ser atualizado
         tarefa.appendChild(checkbox);
+
 
         //cria label
         let label = document.createElement('label');
         label.innerHTML = inputText.value;
         label.setAttribute("for", inputText.value);
+        label.setAttribute("id", "textoLabel");
         tarefa.appendChild(label);
 
         //botão de fechamento
         let button = document.createElement('button');
         button.innerText = "x";
         tarefa.appendChild(button);
-        button.addEventListener('click', function() {
+        button.addEventListener('click', () => {
             todoLista.removeChild(tarefa);
         })
-
-        // function feita() {
-        //     if (checkbox.checked == true) {
-        //         document.getElementById('label').style.color = "grey";
-        //     }
-        // }
-        // checkbox.addEventListener('click', feita)
 
         //adiciona tarefa na lista
         todoLista.appendChild(tarefa);
@@ -81,37 +78,46 @@ window.addEventListener('DOMContentLoaded', function() {
 
     //botao de remover
     function remover() {
+        if (!confirm(`tem certeza que deseja apagar todas as tarefas?`)) {
+            return;
+        }
         const todoLista = document.getElementById("todoLista");
         while (todoLista.firstChild) {
             todoLista.removeChild(todoLista.firstChild)
         }
     }
 
-    function marcar() {
-        const todosOsCheckbox = document.querySelectorAll('input[type=checkbox]');
-        todosOsCheckbox.forEach(function(checkboxIndividual) {
-            checkboxIndividual.checked = true;
-            marcarTodos.innerText = 'desmarcar todos'; // a ver
-        })
-
+    // Verifica se todos os checkboxes estao ticados e atualiza a variavel de controle chamada todosFeitos (declarada no topo)
+    function checarTodosMarcados() {
+        const todosOsCheckbox = Array.from(document.querySelectorAll('input[type=checkbox]'));
+        if (todosOsCheckbox.length === 0) {
+            todosFeitos = false;
+        } else {
+            todosFeitos = todosOsCheckbox.every(checkboxIndividual => checkboxIndividual.checked === true);
+            // var mudarComCheck = document.getElementById("textoLabel");
+            // mudarComCheck.classList.add("checked");
+        }
     }
 
-    // if (marcarTodos.innerText = 'desmarcar todos') {
-    //     function desmarcar() {
-    //         const todosOsCheckbox = document.querySelectorAll('input[type=checkbox]');
-    //         todosOsCheckbox.forEach(function(checkboxVoltar) {
-    //             checkboxVoltar.checked = false;
-    //             marcarTodos.innerText = 'marcar todos'
-    //         })
-    //     }
-    //     marcarTodos.addEventListener('click', desmarcar);
-    // }
+    function marcarDesmarcarTodos() {
+        if (todosFeitos) { // Desmarca todos
+            const todosOsCheckbox = Array.from(document.querySelectorAll('input[type=checkbox]'));
+            todosOsCheckbox.forEach(checkboxIndividual => checkboxIndividual.checked = false)
+        } else { // Marca todos
+            const todosOsCheckbox = Array.from(document.querySelectorAll('input[type=checkbox]'));
+            todosOsCheckbox.forEach(checkboxIndividual => checkboxIndividual.checked = true)
+        }
+
+        checarTodosMarcados() // Atualiza o valor de todosFeitos
+        marcarTodos.innerText = todosFeitos ? 'desmarcar todos' : 'marcar todos'
+
+    }
 
     //escutadores
     todoSubmit.addEventListener('click', addTarefa);
 
     removerTodos.addEventListener('click', remover);
 
-    marcarTodos.addEventListener('click', marcar);
+    marcarTodos.addEventListener('click', marcarDesmarcarTodos);
 
 })

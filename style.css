@@ -98,3 +98,17 @@ label {
     text-align: left;
     width: 100%;
 }
+
+ul li button {
+    color: #0000000;
+    font-weight: bold;
+}
+
+ul li button:hover {
+    box-shadow: grey 2px 2px 5px;
+}
+
+label {
+    text-align: left;
+    width: 100%;
+}
